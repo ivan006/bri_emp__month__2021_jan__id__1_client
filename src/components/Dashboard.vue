@@ -1,17 +1,9 @@
 <template>
-    <section class="section">
-        <div class="container">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-menu is-active buttons">
-                    <router-link to="/" tag="button" id='home-button' class="button is-link"> Home </router-link>
-                    <router-link to="/movies" v-if='authenticated' tag="button" id='home-button' class="button is-link"> Movies </router-link>
-                    <button class="button is-link" v-if='authenticated' v-on:click='logout' id='logout-button'> Logout </button>
-                    <button v-else v-on:click='login' id='login-button' class="button is-link"> Login </button>
-                </div>
-            </nav>
-            <router-view></router-view>
-        </div>
-    </section>
+    <div class="container">
+        <button v-if='authenticated' v-on:click='logout' id='logout-button'> Logout </button>
+        <button v-else v-on:click='login' id='login-button'> Login </button>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
@@ -38,6 +30,7 @@ export default {
         async logout () {
             await this.$auth.logout()
             await this.isAuthenticated()
+
             // Navigate back to home
             this.$router.push({ path: '/' })
         }
